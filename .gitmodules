@@ -1,0 +1,3 @@
+[submodule "WowPhpTools"]
+	path = WowPhpTools
+	url = git@github.com:christiaan/WowPhpTools.git
