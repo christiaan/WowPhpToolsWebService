@@ -50,4 +50,8 @@ else {
 	$json = file_get_contents($cachefile);
 }
 
+$expires = 3600; // 1 hour
+header("Pragma: public");
+header("Cache-Control: maxage=".$expires);
+header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
 echo $_GET['c']."(".$json.");";
