@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Example Wow-heroes widget</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<style type="text/css">
+	body {
+		color: #FFFFFF;
+		background-color: #000000;
+	}
+	.class_6 {color: #C41F3B;}
+	.class_11 {color: #FF7D0A;}
+	.class_3 {color: #ABD473;}
+	.class_8 {color: #69CCF0;}
+	.class_2 {color: #F58CBA;}
+	.class_5 {color: #FFFFFF;}
+	.class_4 {color: #FFF569;}
+	.class_7 {color: #2459FF;}
+	.class_9 {color: #9482C9;}
+	.class_1 {color: #C79C6E;}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var widget = $("#widget"),
+		throbber = $('<img src="throbber.gif" alt="Loading..." width="54" height="55" />').appendTo(widget);
+		$.ajax({
+			cache: true,
+			url: "http://christiaan.baartse.nl/WowPhpToolsWebService/wowheroes/?z=eu&r=Outland&g=mysth&c=?",
+			dataType: "jsonp",
+			success: function(characters){
+				throbber.remove();
+				if(characters){
+					widget.append("<table><thead><tr><th>Name</th><th>Score</th></tr></thead><tbody></tbody></table>");
+					var tbody = widget.find('tbody');
+					$.each(characters, function(i, c){
+						tbody.append("<tr><td>"+
+							"<a class=\"class_"+c.classId+"\" href=\"http://wow-heroes.com/index.php?zone=eu&server=Outland&name="+escape(c.name)+"\">"+c.name+"</a>"+
+							"</td><td>"+c.score+"</td></tr>");
+					});
+				}
+			}
+		});
+	});
+	</script>
+  </head>
+  <body>
+	<div id="widget"></div>
+  </body>
+</html>
+
