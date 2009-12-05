@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+	<title>Example Armory widget</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<style type="text/css">
+	body {
+		color: #FFFFFF;
+		background-color: #000000;
+	}
+	.class_6 {color: #C41F3B;}
+	.class_11 {color: #FF7D0A;}
+	.class_3 {color: #ABD473;}
+	.class_8 {color: #69CCF0;}
+	.class_2 {color: #F58CBA;}
+	.class_5 {color: #FFFFFF;}
+	.class_4 {color: #FFF569;}
+	.class_7 {color: #2459FF;}
+	.class_9 {color: #9482C9;}
+	.class_1 {color: #C79C6E;}
+	</style>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2/swfobject.js"></script>
+	<script type="text/javascript">
+	jQuery(function($){
+		var widget = $("#widget"),
+		throbber = $('<img src="throbber.gif" alt="Loading..." width="54" height="55" />').appendTo(widget),
+		ranks = ['Guild Leader', 'Officer', 'Officer', 'Role Leader', 'Raid Leader', 'Raider', 'Member', 'Social', 'Alt', 'Initiate'];
+		$.ajax({
+			cache: true,
+			url: "http://christiaan.baartse.nl/WowPhpToolsWebService/armory/?z=eu&r=Outland&g=Mysth&c=?",
+			dataType: "jsonp",
+			success: function(guild){
+				throbber.remove();
+				if(guild){
+					widget.append('<h1><a href="'+guild.url+'">'+guild.name+'</a></h1>');
+
+					if(swfobject && guild.emblem && guild.emblem.swf){
+						widget.append('<div id="emblem_'+guild.name+'"></div>');
+						var flashvars = {};
+						var params = {};
+						var attributes = {};
+
+						swfobject.embedSWF(
+							guild.emblem.swf,
+							'emblem_'+guild.name,
+							"230",
+							"200",
+							"9.0.0",
+							"expressInstall.swf",
+							guild.emblem.flashvars,
+							{
+								wmode : 'transparent',
+								quality: 'best',
+								menu: '',
+								salign: 'tl'
+							}
+						);
+					}
+
+
+					widget.append("<table><thead><tr><th>C</th><th>Name</th><th>Achievement Points</th><th>Rank</th></tr></thead><tbody></tbody></table>");
+					var tbody = widget.find('tbody');
+					$.each(guild.members, function(i, c){
+						tbody.append("<tr><td><img src=\"classicons/"+c.classId+".gif\" alt=\""+c.classId+"\" width=\"18\" height=\"18\"/></td><td>"+
+							"<a class=\"class_"+c.classId+"\" href=\""+c.url+"\">"+c.name+"</a>"+
+							"</td><td>"+c.achPoints+"</td><td>"+(ranks[parseInt(c.rank)])+"</td></tr>");
+					});
+				}
+			}
+		});
+	});
+	</script>
+  </head>
+  <body>
+	  <div id="widget"></div>
+  </body>
+</html>

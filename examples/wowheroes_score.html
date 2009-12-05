@@ -32,10 +32,10 @@
 			success: function(characters){
 				throbber.remove();
 				if(characters){
-					widget.append("<table><thead><tr><th>Name</th><th>Score</th></tr></thead><tbody></tbody></table>");
+					widget.append("<table><thead><tr><th>C</th><th>Name</th><th>Score</th></tr></thead><tbody></tbody></table>");
 					var tbody = widget.find('tbody');
 					$.each(characters, function(i, c){
-						tbody.append("<tr><td>"+
+						tbody.append("<tr><td><img src=\"classicons/"+c.classId+".gif\" alt=\""+c.classId+"\" width=\"18\" height=\"18\"/></td><td>"+
 							"<a class=\"class_"+c.classId+"\" href=\"http://wow-heroes.com/index.php?zone=eu&server=Outland&name="+escape(c.name)+"\">"+c.name+"</a>"+
 							"</td><td>"+c.score+"</td></tr>");
 					});

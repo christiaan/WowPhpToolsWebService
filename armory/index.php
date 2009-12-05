@@ -82,12 +82,15 @@ if(!file_exists($cachefile) || filemtime($cachefile) < strtotime("-1 hour")) {
 		'faction' => getStr($guildHeader, 'faction'),
 		'realm' => getStr($guildHeader, 'realm'),
 		'emblem' => array(
-			'emblemBackground' => getStr($emblem, 'emblemBackground'),
-			'emblemBorderColor' => getStr($emblem, 'emblemBorderColor'),
-			'emblemBorderStyle' => getStr($emblem, 'emblemBorderStyle'),
-			'emblemIconColor' => getStr($emblem, 'emblemIconColor'),
-			'emblemIconStyle' => getStr($emblem, 'emblemIconStyle'),
-			'swfFlashvars' => 'emblemstyle=37&emblemcolor=14&embborderstyle=4&embbordercolor=14&bgcolor=45&faction=1&imgdir=/_images/tabard_images/',
+			'flashvars' => array(
+				'emblemstyle' => getStr($emblem, 'emblemIconStyle'),
+				'emblemcolor' => getStr($emblem, 'emblemIconColor'),
+				'embborderstyle' => getStr($emblem, 'emblemBorderStyle'),
+				'embbordercolor' => getStr($emblem, 'emblemBorderColor'),
+				'bgcolor' => getStr($emblem, 'emblemBackground'),
+				'faction' => getStr($guildHeader, 'faction'),
+				'imgdir' => 'http://eu.wowarmory.com/_images/tabard_images/'
+			),
 			'swf' => 'http://eu.wowarmory.com/_images/emblem_ex.swf',
 		),
 		'members' => $members
